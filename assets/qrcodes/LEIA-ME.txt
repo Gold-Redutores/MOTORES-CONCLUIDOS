@@ -1,0 +1,1 @@
+Os QR Codes serão criados automaticamente aqui após rodar python gerar_site.py

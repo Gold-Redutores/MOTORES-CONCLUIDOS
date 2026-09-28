@@ -1,0 +1,218 @@
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #003366;
+  /* Fundo da página: use a URL direta da imagem */
+  background-image: url('https://i.ibb.co/Xfpfxj6h/fundoinpasa1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.topo {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  /* Ajuste aqui a posição/altura fixa do cabeçalho para futuras mudanças de layout. */
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.96), rgba(255,255,255,.86)),
+    linear-gradient(135deg, #061f3f, #0b3769);
+  color: #fff;
+  padding: 12px 12px 16px;
+  border-bottom: 6px solid #d4af37;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.header-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.logos {
+  display: flex;
+  align-items: center;
+  min-height: 78px;
+}
+
+.logos:first-child { justify-content: flex-start; }
+.logos:last-child { justify-content: flex-end; }
+
+.logo-gold,
+.logo-inpasa {
+  display: block;
+  object-fit: contain;
+  background: transparent;
+  mix-blend-mode: normal;
+}
+
+.logo-gold { height: 70px; width: auto; }
+/* Ajuste este valor para mudar o tamanho do logo INPASA nas páginas geradas. */
+.logo-inpasa { height: 60px; width: auto; }
+
+.header-text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 1px;
+}
+
+.tipo {
+  color: #f2b400;
+  font-size: 22px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.tag {
+  /* Ajuste este tamanho para mudar o texto da TAG */
+  font-size: clamp(20px, 8vw, 40px);
+  color: #061f3f;
+  font-weight: 900;
+  line-height: 1;
+  margin-top: 6px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.card {
+   /* Ajuste busca de TAG */
+  background: #94c2f4;
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+  margin-top: 0;
+  color: #111827;
+  border-left: 6px solid #d4af37;
+  padding-left: 10px;
+}
+
+.photo-card {
+  border: 3px solid #d4af37;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #fff;
+  width: 50%;
+  margin: 0 auto 20px auto;
+  /* Ajuste o último valor para mudar a distância entre a foto e a seção de dados principais */
+}
+
+.foto-equipamento {
+  display: block;
+  width: 75%;
+  max-width: 75%;
+  margin: 0 auto;
+  object-fit: contain;
+  background: #fff;
+}
+
+.tabela-dados {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+.tabela-dados th,
+.tabela-dados td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.tabela-dados th {
+  width: 34%;
+  background: #111827;
+  color: #fff;
+}
+
+.botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.botao {
+  display: inline-block;
+  background: #d4af37;
+  color: #111827;
+  padding: 12px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.botao.secundario { background: #111827; color: #fff; }
+.botao.inativo { background: #ddd; color: #777; cursor: not-allowed; }
+
+.obs {
+  background: #fff7d6;
+  border-left: 6px solid #d4af37;
+  border-radius: 8px;
+  padding: 14px;
+  margin-top: 12px;
+}
+
+.busca {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin: 12px 0 18px;
+  font-size: 16px;
+}
+
+.grid-equipamentos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+.equipamento-card {
+  display: block;
+  text-decoration: none;
+  color: #1a1b1b;
+  background: #cfd8f1;
+  border-radius: 14px;
+  border: 3px solid #b5f506;
+  padding: 28px;
+  box-shadow: 0 4px 14px rgba(254, 254, 254, 0.06);
+}
+
+.equipamento-card:hover { transform: translateY(-2px); border-color: #d4af37; }
+.equipamento-card strong { display: block; font-size: 20px; color: #111827; }
+.equipamento-card span { display: block; margin-top: 6px; }
+
+footer {
+  text-align: center;
+  padding: 18px;
+  color: #555;
+  font-size: 14px;
+}
+
+@media (max-width: 650px) {
+  .topo h1 { font-size: 22px; }
+  .tabela-dados th, .tabela-dados td { display: block; width: 100%; }
+  .tabela-dados th { border-bottom: none; }
+}

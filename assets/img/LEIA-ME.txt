@@ -1,0 +1,2 @@
+Coloque aqui as fotos dos equipamentos. Exemplo: ME-631001.jpg
+O caminho correspondente no Excel deve ser: assets/img/ME-631001.jpg
