@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Book Digital - Equipamentos</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* Estilos Integrados do Pure CSS3 Slider - Copiado do Relatório */
+    .header-slider-wrapper { position: sticky; top: 0; z-index: 1000; }
+    #slider { width: 90%; max-width: 1080px; height: 70px; position: relative; overflow: hidden; margin: 8px auto 15px auto; border: 1px solid #333; background: #fff; }
+    .slides { width: 200%; height: 100%; position: relative; -webkit-animation: slide 12s infinite; -moz-animation: slide 12s infinite; animation: slide 12s infinite; }
+    .slider { width: 16.6666%; height: 100%; float: left; position: relative; z-index: 1; overflow: hidden; box-sizing: border-box; border-right: 2px solid #333; }
+    .image { width: 100%; height: 100%; position: relative; }
+    .image img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .switch { width: 120px; height: 10px; position: absolute; bottom: 18px; z-index: 99; left: 20px; }
+    .switch>ul { list-style: none; overflow: hidden; padding: 0; margin: 0; }
+    .switch>ul>li { width: 6px; height: 6px; border-radius: 50%; background: #333; float: left; margin-right: 9px; cursor: pointer; }
+    .on { width: 100%; height: 100%; border-radius: 50%; background: rgba(23, 117, 177, 1); position: relative; -webkit-animation: on 12s infinite; -moz-animation: on 12s infinite; animation: on 12s infinite; }
+    @-webkit-keyframes slide { 0%, 20% { margin-left: 0%; } 25%, 45% { margin-left: -33.333%; } 50%, 70% { margin-left: -66.666%; } 75%, 95% { margin-left: -100%; } 100% { margin-left: 0%; } }
+    @keyframes slide { 0%, 20% { margin-left: 0%; } 25%, 45% { margin-left: -33.333%; } 50%, 70% { margin-left: -66.666%; } 75%, 95% { margin-left: -100%; } 100% { margin-left: 0%; } }
+    @-webkit-keyframes on { 0%, 20% { margin-left: 0%; } 25%, 45% { margin-left: 15px; } 50%, 70% { margin-left: 30px; } 75%, 95% { margin-left: 45px; } 100% { margin-left: 0%; } }
+    @keyframes on { 0%, 20% { margin-left: 0%; } 25%, 45% { margin-left: 15px; } 50%, 70% { margin-left: 30px; } 75%, 95% { margin-left: 45px; } 100% { margin-left: 0%; } }
+  </style>
+</head>
+<body>
+
+  <div class="header-slider-wrapper">
+    <header class="topo">
+      <div class="header-row">
+        <div class="logos">
+        <!-- Ajuste o tamanho do logo INPASA aqui via .logo-inpasa no CSS. -->
+          <img class="logo-inpasa" src="assets/img/logo_inpasa.png" alt="INPASA">
+        </div>
+          <div class="header-text">
+          <div class="tipo">Data Book Digital</div>
+          <div class="tag">Equipamentos</div>
+        </div>
+        <div class="logos">
+        <img class="logo-gold" src="assets/img/transparent/logo_gold_transparent.png" alt="Gold Redutores">
+        </div>
+      </div>
+    </header>
+
+    <!-- Carrossel de Imagens -->
+    <div id="slider">
+        <div class="slides">
+            <div class="slider">
+                <div class="image">
+                    <img src="https://i.ibb.co/V07bLNT1/GOLD-MAQUINAS.png" alt="Logo Gold Redutores">
+                </div>
+            </div>
+            <div class="slider">
+                <div class="image">
+                    <img src="https://i.ibb.co/JjQNQPwJ/logo-inpasa.png" alt="Logo Inpasa" style="object-fit: contain; padding: 20px; box-sizing: border-box;">
+                </div>
+            </div>
+            <div class="slider">
+                <div class="image">
+                    <img src="https://i.ibb.co/r9DRsZq/GOLD-REDUTORES.png" alt="GOLD REDUTORES" border="0">
+                </div>
+            </div>
+            <div class="slider">
+                <div class="image">
+                    <img src="https://i.ibb.co/JjQNQPwJ/logo-inpasa.png" alt="Logo Inpasa" style="object-fit: contain; padding: 20px; box-sizing: border-box;">
+                </div>
+            </div>
+            <div class="slider">
+                <div class="image">
+                    <img src="https://i.ibb.co/3mVp95wL/GOLD-AUTOMA-O.png" alt="GOLD AUTOMAÇÃO" border="0">
+                </div>
+            </div>
+            <div class="slider">
+                <div class="image">
+                    <img src="https://i.ibb.co/JjQNQPwJ/logo-inpasa.png" alt="Logo Inpasa" style="object-fit: contain; padding: 20px; box-sizing: border-box;">
+                </div>
+            </div>
+        </div>
+        <div class="switch">
+            <ul>
+                <li><div class="on"></div></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="card">
+      <h2>Equipamentos cadastrados</h2>
+      <p>Digite a TAG, modelo, tipo ou local para localizar o equipamento.</p>
+      <input class="busca" id="busca" type="text" placeholder="Exemplo: ME-631011, motoredutor, WEG...">
+    </section>
+
+    <section class="grid-equipamentos" id="listaEquipamentos">
+      
+      <a class="equipamento-card" href="equipamentos/RE-631501/index.html" data-busca="re-631501 motoredutor weg cestari wcg20 - v/f10 correia transportadora - ct- 01">
+        <strong>RE-631501</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>WCG20 - V/F10</span>
+        <small>Correia Transportadora - CT- 01</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-631502/index.html" data-busca="re-631502 motoredutor weg cestari wcg20 - v/f10 correia transportadora - ct- 02">
+        <strong>RE-631502</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>WCG20 - V/F10</span>
+        <small>Correia Transportadora - CT- 02</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-631503/index.html" data-busca="re-631503 motoredutor weg cestari wcg20 - v/f10 correia transportadora - ct- 03">
+        <strong>RE-631503</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>WCG20 - V/F10</span>
+        <small>Correia Transportadora - CT- 03</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-631504/index.html" data-busca="re-631504 motoredutor weg cestari wcg20 - v/f10 correia transportadora - ct- 04">
+        <strong>RE-631504</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>WCG20 - V/F10</span>
+        <small>Correia Transportadora - CT- 04</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-631508/index.html" data-busca="re-631508 motoredutor weg cestari wcg20 - v/f12 correia transportadora - ct-08">
+        <strong>RE-631508</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>WCG20 - V/F12</span>
+        <small>Correia Transportadora - CT-08</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-631509/index.html" data-busca="re-631509 motoredutor weg cestari wcg20 - v/f12 correia transportadora - ct-09">
+        <strong>RE-631509</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>WCG20 - V/F12</span>
+        <small>Correia Transportadora - CT-09</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-631512/index.html" data-busca="re-631512 motoredutor weg cestari wcg20 f10 3 correia transportadora - ct- 25">
+        <strong>RE-631512</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>WCG20 F10 3</span>
+        <small>Correia Transportadora - CT- 25</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-631513/index.html" data-busca="re-631513 motoredutor weg cestari wcg20 v/f12 3 correia transportadora - ct- 23">
+        <strong>RE-631513</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>WCG20 V/F12 3</span>
+        <small>Correia Transportadora - CT- 23</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-631514/index.html" data-busca="re-631514 motoredutor weg cestari wcg20 - v/f12 correia transportadora - ct-21">
+        <strong>RE-631514</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>WCG20 - V/F12</span>
+        <small>Correia Transportadora - CT-21</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-631516/index.html" data-busca="re-631516 motoredutor weg cestari wcg20 - v/f10 correia transportadora - ct- 22">
+        <strong>RE-631516</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>WCG20 - V/F10</span>
+        <small>Correia Transportadora - CT- 22</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601011/index.html" data-busca="re-601011 motoredutor weg cestari c10 - 3 dosador de cavaco 1">
+        <strong>RE-601011</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>C10 - 3</span>
+        <small>DOSADOR DE CAVACO 1</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601012/index.html" data-busca="re-601012 motoredutor weg cestari c10 - 3 dosador de cavaco 2">
+        <strong>RE-601012</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>C10 - 3</span>
+        <small>DOSADOR DE CAVACO 2</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601013/index.html" data-busca="re-601013 motoredutor weg cestari c10 - 3 dosador de cavaco 3">
+        <strong>RE-601013</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>C10 - 3</span>
+        <small>DOSADOR DE CAVACO 3</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601014/index.html" data-busca="re-601014 motoredutor weg cestari c10 - 3 dosador de cavaco 4">
+        <strong>RE-601014</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>C10 - 3</span>
+        <small>DOSADOR DE CAVACO 4</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601015/index.html" data-busca="re-601015 motoredutor weg cestari c10 - 3 dosador de cavaco 5">
+        <strong>RE-601015</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>C10 - 3</span>
+        <small>DOSADOR DE CAVACO 5</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601016/index.html" data-busca="re-601016 motoredutor weg cestari c10 - 3 dosador de cavaco 6">
+        <strong>RE-601016</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>C10 - 3</span>
+        <small>DOSADOR DE CAVACO 6</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601017/index.html" data-busca="re-601017 motoredutor weg cestari c10 - 3 dosador de cavaco 7">
+        <strong>RE-601017</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>C10 - 3</span>
+        <small>DOSADOR DE CAVACO 7</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601018/index.html" data-busca="re-601018 motoredutor weg cestari c10 - 3 dosador de cavaco 8">
+        <strong>RE-601018</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>C10 - 3</span>
+        <small>DOSADOR DE CAVACO 8</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601019/index.html" data-busca="re-601019 motoredutor weg cestari c10 - 3 dosador de cavaco 9">
+        <strong>RE-601019</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>C10 - 3</span>
+        <small>DOSADOR DE CAVACO 9</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601046/index.html" data-busca="re-601046 motoredutor promoen srrp - p2 redutor soprador de fuligem retrátil sf-09 le feixe">
+        <strong>RE-601046</strong>
+        <span>MOTOREDUTOR PROMOEN</span>
+        <span>SRRP - P2</span>
+        <small>REDUTOR SOPRADOR DE FULIGEM RETRÁTIL SF-09 LE FEIXE</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601029/index.html" data-busca="re-601029 motoredutor promoen srrp - p2 redutor soprador de fuligem retrátil sf-01 ld - super sec">
+        <strong>RE-601029</strong>
+        <span>MOTOREDUTOR PROMOEN</span>
+        <span>SRRP - P2</span>
+        <small>REDUTOR SOPRADOR DE FULIGEM RETRÁTIL SF-01 LD - SUPER SEC</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601030/index.html" data-busca="re-601030 motoredutor promoen srrp - p2 redutor soprador de fuligem retrátil sf-01 le - super sec">
+        <strong>RE-601030</strong>
+        <span>MOTOREDUTOR PROMOEN</span>
+        <span>SRRP - P2</span>
+        <small>REDUTOR SOPRADOR DE FULIGEM RETRÁTIL SF-01 LE - SUPER SEC</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601043/index.html" data-busca="re-601043 motoredutor promoen srrp - p2 redutor soprador de fuligem retrátil sf-08 ld feixe">
+        <strong>RE-601043</strong>
+        <span>MOTOREDUTOR PROMOEN</span>
+        <span>SRRP - P2</span>
+        <small>REDUTOR SOPRADOR DE FULIGEM RETRÁTIL SF-08 LD FEIXE</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601031/index.html" data-busca="re-601031 motoredutor promoen srrp - p2 redutor soprador de fuligem retrátil sf-02 ld - super sec">
+        <strong>RE-601031</strong>
+        <span>MOTOREDUTOR PROMOEN</span>
+        <span>SRRP - P2</span>
+        <small>REDUTOR SOPRADOR DE FULIGEM RETRÁTIL SF-02 LD - SUPER SEC</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601032/index.html" data-busca="re-601032 motoredutor promoen srrp - p2 redutor soprador de fuligem retrátil sf-02 le - super sec">
+        <strong>RE-601032</strong>
+        <span>MOTOREDUTOR PROMOEN</span>
+        <span>SRRP - P2</span>
+        <small>REDUTOR SOPRADOR DE FULIGEM RETRÁTIL SF-02 LE - SUPER SEC</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601042/index.html" data-busca="re-601042 motoredutor promoen srrp - p2 redutor soprador de fuligem retrátil sf-07 le screen">
+        <strong>RE-601042</strong>
+        <span>MOTOREDUTOR PROMOEN</span>
+        <span>SRRP - P2</span>
+        <small>REDUTOR SOPRADOR DE FULIGEM RETRÁTIL SF-07 LE SCREEN</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601044/index.html" data-busca="re-601044 motoredutor promoen srrp - p2 redutor soprador de fuligem retrátil sf-08 le feixe">
+        <strong>RE-601044</strong>
+        <span>MOTOREDUTOR PROMOEN</span>
+        <span>SRRP - P2</span>
+        <small>REDUTOR SOPRADOR DE FULIGEM RETRÁTIL SF-08 LE FEIXE</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601041/index.html" data-busca="re-601041 motoredutor promoen srrp - p2 redutor soprador de fuligem retrátil sf-07 ld screen">
+        <strong>RE-601041</strong>
+        <span>MOTOREDUTOR PROMOEN</span>
+        <span>SRRP - P2</span>
+        <small>REDUTOR SOPRADOR DE FULIGEM RETRÁTIL SF-07 LD SCREEN</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601040/index.html" data-busca="re-601040 motoredutor promoen srrp - p2 redutor soprador de fuligem retrátil sf-06 le screen">
+        <strong>RE-601040</strong>
+        <span>MOTOREDUTOR PROMOEN</span>
+        <span>SRRP - P2</span>
+        <small>REDUTOR SOPRADOR DE FULIGEM RETRÁTIL SF-06 LE SCREEN</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601039/index.html" data-busca="re-601039 motoredutor promoen srrp - p2 redutor soprador de fuligem retrátil sf-06 ld screen">
+        <strong>RE-601039</strong>
+        <span>MOTOREDUTOR PROMOEN</span>
+        <span>SRRP - P2</span>
+        <small>REDUTOR SOPRADOR DE FULIGEM RETRÁTIL SF-06 LD SCREEN</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601045/index.html" data-busca="re-601045 motoredutor promoen srrp - p2 redutor soprador de fuligem retrátil sf-09 ld feixe">
+        <strong>RE-601045</strong>
+        <span>MOTOREDUTOR PROMOEN</span>
+        <span>SRRP - P2</span>
+        <small>REDUTOR SOPRADOR DE FULIGEM RETRÁTIL SF-09 LD FEIXE</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601036/index.html" data-busca="re-601036 motoredutor promoen srrp - p2 redutor de fuligem retrátil sf-04 le - super sec / prim">
+        <strong>RE-601036</strong>
+        <span>MOTOREDUTOR PROMOEN</span>
+        <span>SRRP - P2</span>
+        <small>REDUTOR DE FULIGEM RETRÁTIL SF-04 LE - SUPER SEC / PRIM</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601038/index.html" data-busca="re-601038 motoredutor promoen srrp - p2 redutor de fuligem retrátil sf-05 le - super sec / prim">
+        <strong>RE-601038</strong>
+        <span>MOTOREDUTOR PROMOEN</span>
+        <span>SRRP - P2</span>
+        <small>REDUTOR DE FULIGEM RETRÁTIL SF-05 LE - SUPER SEC / PRIM</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601037/index.html" data-busca="re-601037 motoredutor promoen srrp - p2 redutor de fuligem retrátil sf-05 ld - super sec / prim">
+        <strong>RE-601037</strong>
+        <span>MOTOREDUTOR PROMOEN</span>
+        <span>SRRP - P2</span>
+        <small>REDUTOR DE FULIGEM RETRÁTIL SF-05 LD - SUPER SEC / PRIM</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601035/index.html" data-busca="re-601035 motoredutor promoen srrp - p2 redutor soprador de fuligem retrátil sf-04 ld - super sec / prim">
+        <strong>RE-601035</strong>
+        <span>MOTOREDUTOR PROMOEN</span>
+        <span>SRRP - P2</span>
+        <small>REDUTOR SOPRADOR DE FULIGEM RETRÁTIL SF-04 LD - SUPER SEC / PRIM</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-631517/index.html" data-busca="re-631517 motoredutor v09 redutor da transp. de correia tcd/48&quot;  (me631517) - ct-26">
+        <strong>RE-631517</strong>
+        <span>MOTOREDUTOR</span>
+        <span>V09</span>
+        <small>REDUTOR DA TRANSP. DE CORREIA TCD/48&quot;  (ME631517) - CT-26</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601063/index.html" data-busca="re-601063 motoredutor v 07 redutor válvula rotativa 8 - csc 4">
+        <strong>RE-601063</strong>
+        <span>MOTOREDUTOR</span>
+        <span>V 07</span>
+        <small>REDUTOR VÁLVULA ROTATIVA 8 - CSC 4</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601062/index.html" data-busca="re-601062 motoredutor v 07 redutor válvula rotativa 1 - feixe 1">
+        <strong>RE-601062</strong>
+        <span>MOTOREDUTOR</span>
+        <span>V 07</span>
+        <small>REDUTOR VÁLVULA ROTATIVA 1 - FEIXE 1</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601067/index.html" data-busca="re-601067 motoredutor v 07 redutor válvula rotativa 6 - csc 2">
+        <strong>RE-601067</strong>
+        <span>MOTOREDUTOR</span>
+        <span>V 07</span>
+        <small>REDUTOR VÁLVULA ROTATIVA 6 - CSC 2</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601069/index.html" data-busca="re-601069 motoredutor v 07 redutor válvula rotativa 8 - csc 4">
+        <strong>RE-601069</strong>
+        <span>MOTOREDUTOR</span>
+        <span>V 07</span>
+        <small>REDUTOR VÁLVULA ROTATIVA 8 - CSC 4</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601068/index.html" data-busca="re- 601068 motoredutor v 07 redutor válvula rotativa 7 - csc 3">
+        <strong>RE- 601068</strong>
+        <span>MOTOREDUTOR</span>
+        <span>V 07</span>
+        <small>REDUTOR VÁLVULA ROTATIVA 7 - CSC 3</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-601049/index.html" data-busca="me - 601049 motoredutor v58 redutor rosca transportadora de fuligem 3 - multiciclone">
+        <strong>ME - 601049</strong>
+        <span>MOTOREDUTOR</span>
+        <span>V58</span>
+        <small>REDUTOR ROSCA TRANSPORTADORA DE FULIGEM 3 - MULTICICLONE</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-601050/index.html" data-busca="me - 601050 motoredutor v58 redutor rosca transportadora de fuligem 4 - multiciclone">
+        <strong>ME - 601050</strong>
+        <span>MOTOREDUTOR</span>
+        <span>V58</span>
+        <small>REDUTOR ROSCA TRANSPORTADORA DE FULIGEM 4 - MULTICICLONE</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-601051/index.html" data-busca="me - 601051 motoredutor v58 redutor rosca transportadora de fuligem 5 - multiciclone">
+        <strong>ME - 601051</strong>
+        <span>MOTOREDUTOR</span>
+        <span>V58</span>
+        <small>REDUTOR ROSCA TRANSPORTADORA DE FULIGEM 5 - MULTICICLONE</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-601052/index.html" data-busca="me - 601052 motoredutor v58 redutor rosca transportadora de fuligem 6 - multiciclone">
+        <strong>ME - 601052</strong>
+        <span>MOTOREDUTOR</span>
+        <span>V58</span>
+        <small>REDUTOR ROSCA TRANSPORTADORA DE FULIGEM 6 - MULTICICLONE</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-601243/index.html" data-busca="me-601243 motoredutor fa 77 redutor da rosca transportadoras 02">
+        <strong>ME-601243</strong>
+        <span>MOTOREDUTOR</span>
+        <span>FA 77</span>
+        <small>REDUTOR DA ROSCA TRANSPORTADORAS 02</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-601244/index.html" data-busca="me-601244 motoredutor fa 77 redutor da rosca transportadoras 03">
+        <strong>ME-601244</strong>
+        <span>MOTOREDUTOR</span>
+        <span>FA 77</span>
+        <small>REDUTOR DA ROSCA TRANSPORTADORAS 03</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601070/index.html" data-busca="re-601070 motoredutor fa 77 redutor válvula rotativa 9 - csc 5">
+        <strong>RE-601070</strong>
+        <span>MOTOREDUTOR</span>
+        <span>FA 77</span>
+        <small>REDUTOR VÁLVULA ROTATIVA 9 - CSC 5</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601242/index.html" data-busca="re-601242 motoredutor fa 77 redutor válvula rotativa 9 - csc 5">
+        <strong>RE-601242</strong>
+        <span>MOTOREDUTOR</span>
+        <span>FA 77</span>
+        <small>REDUTOR VÁLVULA ROTATIVA 9 - CSC 5</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/S-TAG/index.html" data-busca="s/tag motoredutor fa 77 redutor da rosca transportadoras cinzas 01 alimentação">
+        <strong>S/TAG</strong>
+        <span>MOTOREDUTOR</span>
+        <span>FA 77</span>
+        <small>REDUTOR DA ROSCA TRANSPORTADORAS CINZAS 01 ALIMENTAÇÃO</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-601252/index.html" data-busca="me-601252 motoredutor fa87 redutor do motor transportador helicoidal retirada cinzas para moega caldeira 2">
+        <strong>ME-601252</strong>
+        <span>MOTOREDUTOR</span>
+        <span>FA87</span>
+        <small>REDUTOR DO MOTOR TRANSPORTADOR HELICOIDAL RETIRADA CINZAS PARA MOEGA CALDEIRA 2</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-631506/index.html" data-busca="re-631506 redutor planetario brevini - sc 12004 redutor transportadora redler tard/2000 - (trr631506)">
+        <strong>RE-631506</strong>
+        <span>REDUTOR PLANETARIO</span>
+        <span>BREVINI - SC 12004</span>
+        <small>REDUTOR TRANSPORTADORA REDLER TARD/2000 - (TRR631506)</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601129/index.html" data-busca="re-601129 motoredutor v 06 redutor do motor da valvula rotativa 13 - multiciclone">
+        <strong>RE-601129</strong>
+        <span>MOTOREDUTOR</span>
+        <span>V 06</span>
+        <small>REDUTOR DO MOTOR DA VALVULA ROTATIVA 13 - MULTICICLONE</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-601073/index.html" data-busca="me - 601073 motoredutor v56 redutor válvula rotativa 12 - pré/eco 2">
+        <strong>ME - 601073</strong>
+        <span>MOTOREDUTOR</span>
+        <span>V56</span>
+        <small>REDUTOR VÁLVULA ROTATIVA 12 - PRÉ/ECO 2</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601047/index.html" data-busca="re- 601047 redutor duplo  redutor planetario espargidor">
+        <strong>RE- 601047</strong>
+        <span>REDUTOR DUPLO</span>
+        <span></span>
+        <small>REDUTOR PLANETARIO ESPARGIDOR</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-631105/index.html" data-busca="re-631105 motoredutor fa87 redutor rosca transportadora 01 (rt-01)">
+        <strong>RE-631105</strong>
+        <span>MOTOREDUTOR</span>
+        <span>FA87</span>
+        <small>REDUTOR ROSCA TRANSPORTADORA 01 (RT-01)</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-631107/index.html" data-busca="re-631107 motoredutor fa87 redutor rosca transportadora 02 (rt-02)">
+        <strong>RE-631107</strong>
+        <span>MOTOREDUTOR</span>
+        <span>FA87</span>
+        <small>REDUTOR ROSCA TRANSPORTADORA 02 (RT-02)</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-631515/index.html" data-busca="re-631515 motoredutor kh87/t redutor da peneira clas. de discos pcdd/32 02">
+        <strong>RE-631515</strong>
+        <span>MOTOREDUTOR</span>
+        <span>KH87/T</span>
+        <small>REDUTOR DA PENEIRA CLAS. DE DISCOS PCDD/32 02</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-631514/index.html" data-busca="re-631514 motoredutor kh87/t redutor peneira clas. de discos pcdd/32 01 (me631514)">
+        <strong>RE-631514</strong>
+        <span>MOTOREDUTOR</span>
+        <span>KH87/T</span>
+        <small>REDUTOR PENEIRA CLAS. DE DISCOS PCDD/32 01 (ME631514)</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601245/index.html" data-busca="re -601245 redutor planetario planetario ppk2ph017/t - kaf77 redutor planetario motor transp. corrente retirada cinzas c601014">
+        <strong>RE -601245</strong>
+        <span>REDUTOR PLANETARIO</span>
+        <span>PLANETARIO PPK2PH017/T - KAF77</span>
+        <small>REDUTOR PLANETARIO MOTOR TRANSP. CORRENTE RETIRADA CINZAS C601014</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/RE-601248/index.html" data-busca="re-601248 redutor planetario planetario ppk2ph017/t - kaf77 redutor planetario do motor transportador de cinzas para o elevador c-601015">
+        <strong>RE-601248</strong>
+        <span>REDUTOR PLANETARIO</span>
+        <span>PLANETARIO PPK2PH017/T - KAF77</span>
+        <small>REDUTOR PLANETARIO DO MOTOR TRANSPORTADOR DE CINZAS PARA O ELEVADOR C-601015</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-631105/index.html" data-busca="me-631105 motoredutor weg cestari c06 redutor rosca transportadora 01 (rt-01)">
+        <strong>ME-631105</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>C06</span>
+        <small>REDUTOR ROSCA TRANSPORTADORA 01 (RT-01)</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-631106/index.html" data-busca="me-631106 motoredutor weg cestari c05 redutor válvula rotativa 02 (vr-02)">
+        <strong>ME-631106</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>C05</span>
+        <small>REDUTOR VÁLVULA ROTATIVA 02 (VR-02)</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-631107/index.html" data-busca="me-631107 motoredutor weg cestari c06 redutor rosca transportadora 02 (rt-02)">
+        <strong>ME-631107</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>C06</span>
+        <small>REDUTOR ROSCA TRANSPORTADORA 02 (RT-02)</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-631110/index.html" data-busca="me-631110 motoredutor weg cestari c05 redutor válvula rotativa (vr-01)">
+        <strong>ME-631110</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>C05</span>
+        <small>REDUTOR VÁLVULA ROTATIVA (VR-01)</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-631103/index.html" data-busca="me-631103 motoredutor weg cestari c06 redutor rosca de extração do filtro (rt-03)">
+        <strong>ME-631103</strong>
+        <span>MOTOREDUTOR WEG CESTARI</span>
+        <span>C06</span>
+        <small>REDUTOR ROSCA DE EXTRAÇÃO DO FILTRO (RT-03)</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-601078/index.html" data-busca="me- 601078 redutor planetario planetario phf022t / kf87 redutor planetario esteira transportadora de cinzas 03">
+        <strong>ME- 601078</strong>
+        <span>REDUTOR PLANETARIO</span>
+        <span>PLANETARIO PHF022T / KF87</span>
+        <small>REDUTOR PLANETARIO ESTEIRA TRANSPORTADORA DE CINZAS 03</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-601079/index.html" data-busca="me- 601079 redutor planetario planetario phf022t / kf87 redutor planetario esteira transportadora de cinzas 04">
+        <strong>ME- 601079</strong>
+        <span>REDUTOR PLANETARIO</span>
+        <span>PLANETARIO PHF022T / KF87</span>
+        <small>REDUTOR PLANETARIO ESTEIRA TRANSPORTADORA DE CINZAS 04</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-601080/index.html" data-busca="me- 601080 redutor planetario planetario phf022t / kf87 redutor planetario esteira transportadora de cinzas 05">
+        <strong>ME- 601080</strong>
+        <span>REDUTOR PLANETARIO</span>
+        <span>PLANETARIO PHF022T / KF87</span>
+        <small>REDUTOR PLANETARIO ESTEIRA TRANSPORTADORA DE CINZAS 05</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-601241/index.html" data-busca="me- 601241 redutor planetario planetario phf022t / kf87 redutor planetario motor transportador corrente alimentação c601013">
+        <strong>ME- 601241</strong>
+        <span>REDUTOR PLANETARIO</span>
+        <span>PLANETARIO PHF022T / KF87</span>
+        <small>REDUTOR PLANETARIO MOTOR TRANSPORTADOR CORRENTE ALIMENTAÇÃO C601013</small>
+      </a>
+
+      <a class="equipamento-card" href="equipamentos/ME-601240/index.html" data-busca="me - 601240 redutor planetario planetario phf012t / kf87 redutor planetario do motror transportador de corrente alimentação - c-601012">
+        <strong>ME - 601240</strong>
+        <span>REDUTOR PLANETARIO</span>
+        <span>PLANETARIO PHF012T / KF87</span>
+        <small>REDUTOR PLANETARIO DO MOTROR TRANSPORTADOR DE CORRENTE ALIMENTAÇÃO - C-601012</small>
+      </a>
+
+    </section>
+  </main>
+
+  <footer>Gold Redutores - Data Book Digital</footer>
+
+  <script>
+    const campoBusca = document.getElementById("busca");
+    const cards = document.querySelectorAll(".equipamento-card");
+
+    campoBusca.addEventListener("input", function() {
+      const termo = campoBusca.value.toLowerCase().trim();
+      cards.forEach(card => {
+        const texto = card.getAttribute("data-busca");
+        card.style.display = texto.includes(termo) ? "block" : "none";
+      });
+    });
+  </script>
+
+</body>
+</html>
