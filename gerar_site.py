@@ -383,9 +383,14 @@ def caminho_logo_cliente(chave, pasta):
     arquivo_logo = LOGOS_CLIENTES.get(chave)
     if arquivo_logo:
         caminho = PASTA_LOGOS_CLIENTES / arquivo_logo
-        if not (BASE_DIR / caminho).is_file():
-            raise FileNotFoundError(f"Logo do cliente não encontrado: {BASE_DIR / caminho}")
-        return caminho.as_posix()
+        caminho_completo = BASE_DIR / caminho
+        if caminho_completo.is_file():
+            return caminho.as_posix()
+        print(
+            f"Logo cadastrado não encontrado: {caminho_completo}; "
+            f"será usado o logo padrão."
+        )
+        return LOGO_PADRAO_CLIENTE
 
     diretorio_logos = BASE_DIR / PASTA_LOGOS_CLIENTES
     candidatos = sorted(
@@ -490,6 +495,8 @@ def baixar_logo_cliente(url, cliente, pasta):
 def procurar_logos_novos(clientes):
     for chave, (cliente, pasta) in clientes.items():
         if caminho_logo_cliente(chave, pasta) != LOGO_PADRAO_CLIENTE:
+            continue
+        if chave in LOGOS_CLIENTES:
             continue
         try:
             url_logo = buscar_logo_na_internet(cliente)
