@@ -1,4 +1,5 @@
 import argparse
+import builtins
 from pathlib import Path
 import pandas as pd
 import qrcode
@@ -48,7 +49,7 @@ TERMOS_LEGAIS = {
 def limpar_texto(valor):
     if pd.isna(valor):
         return ""
-    return str(valor).strip()
+    return builtins.str(valor).strip()
 
 
 def primeiro_valor_nao_vazio(*valores):
