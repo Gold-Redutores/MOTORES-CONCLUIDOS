@@ -18,7 +18,7 @@ BASE_URL = "https://gold-redutores.github.io/MOTORES-CONCLUIDOS"
 BASE_DIR = Path(__file__).resolve().parent
 ARQUIVO_EXCEL = BASE_DIR / "dados_equipamentos.xlsx"
 PASTA_EQUIPAMENTOS = BASE_DIR / "equipamentos"
-PASTA_ATIVOS = next(
+PASTA_ATIVOS = builtins.next(
     (
         nome
         for nome in ("Ativos", "assets")
@@ -240,8 +240,6 @@ def gerar_index_principal(df):
 """
 
     logo_gold = "https://i.ibb.co/zWgjxdtj/logo.png"
-    logo_inpasa = "Ativos/img/logo_inpasa.png"
-
     return f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -349,8 +347,8 @@ def gerar_index_principal(df):
 
 
 def coluna_cliente(df):
-    return next(
-        (coluna for coluna in df.columns if str(coluna).strip().casefold() == "cliente"),
+    return builtins.next(
+        (coluna for coluna in df.columns if builtins.str(coluna).strip().casefold() == "cliente"),
         None,
     )
 
@@ -362,9 +360,9 @@ def clientes_e_pastas(df, coluna):
         if cliente:
             clientes_por_chave.setdefault(cliente.casefold(), cliente)
 
-    pastas_usadas = set()
+    pastas_usadas = builtins.set()
     resultado = {}
-    for chave, cliente in sorted(
+    for chave, cliente in builtins.sorted(
         clientes_por_chave.items(), key=lambda item: (item[1].casefold(), item[1])
     ):
         base = unicodedata.normalize("NFKD", cliente)
@@ -389,14 +387,14 @@ def caminho_logo_cliente(chave, pasta):
         caminho_completo = BASE_DIR / caminho
         if caminho_completo.is_file():
             return caminho.as_posix()
-        print(
+        builtins.print(
             f"Logo cadastrado não encontrado: {caminho_completo}; "
             f"será usado o logo padrão."
         )
         return LOGO_PADRAO_CLIENTE
 
     diretorio_logos = BASE_DIR / PASTA_LOGOS_CLIENTES
-    candidatos = sorted(
+    candidatos = builtins.sorted(
         caminho
         for caminho in diretorio_logos.glob(f"{pasta}-logo.*")
         if caminho.suffix.casefold() in EXTENSOES_LOGO
@@ -407,7 +405,7 @@ def caminho_logo_cliente(chave, pasta):
 
 
 def normalizar_nome_logo(valor):
-    texto = unicodedata.normalize("NFKD", str(valor))
+    texto = unicodedata.normalize("NFKD", builtins.str(valor))
     texto = "".join(caractere for caractere in texto if not unicodedata.combining(caractere))
     return re.sub(r"[^a-z0-9]+", " ", texto.casefold()).strip()
 
@@ -444,15 +442,15 @@ def buscar_logo_na_internet(cliente):
         dados = json.load(resposta)
 
     melhores = []
-    termos_marca = set(termos)
+    termos_marca = builtins.set(termos)
     for pagina in dados.get("query", {}).get("pages", {}).values():
         titulo = normalizar_nome_logo(pagina.get("title", ""))
-        palavras = set(titulo.split())
+        palavras = builtins.set(titulo.split())
         if "logo" not in palavras or termos[0] not in palavras:
             continue
 
-        correspondencias = len(termos_marca & palavras)
-        if len(termos) > 1 and correspondencias < 2:
+        correspondencias = builtins.len(termos_marca & palavras)
+        if builtins.len(termos) > 1 and correspondencias < 2:
             continue
 
         imagens = pagina.get("imageinfo", [])
@@ -472,7 +470,7 @@ def extensao_segura_imagem(conteudo):
         return ".jpg"
     if conteudo.startswith((b"GIF87a", b"GIF89a")):
         return ".gif"
-    if len(conteudo) >= 12 and conteudo[:4] == b"RIFF" and conteudo[8:12] == b"WEBP":
+    if builtins.len(conteudo) >= 12 and conteudo[:4] == b"RIFF" and conteudo[8:12] == b"WEBP":
         return ".webp"
     return ""
 
@@ -481,18 +479,18 @@ def baixar_logo_cliente(url, cliente, pasta):
     requisicao = Request(url, headers={"User-Agent": USER_AGENT})
     with urlopen(requisicao, timeout=TIMEOUT_BUSCA_LOGO) as resposta:
         conteudo = resposta.read(5_000_001)
-    if len(conteudo) > 5_000_000:
-        raise ValueError("A imagem encontrada ultrapassa o limite de 5 MB.")
+    if builtins.len(conteudo) > 5_000_000:
+        raise builtins.ValueError("A imagem encontrada ultrapassa o limite de 5 MB.")
 
     extensao = extensao_segura_imagem(conteudo)
     if not extensao:
-        raise ValueError("O resultado da busca não é um logo em formato de imagem compatível.")
+        raise builtins.ValueError("O resultado da busca não é um logo em formato de imagem compatível.")
 
     diretorio = BASE_DIR / PASTA_LOGOS_CLIENTES
     diretorio.mkdir(parents=True, exist_ok=True)
     destino = diretorio / f"{pasta}-logo{extensao}"
     destino.write_bytes(conteudo)
-    print(f"Logo encontrado para {cliente}: {destino.relative_to(BASE_DIR)}")
+    builtins.print(f"Logo encontrado para {cliente}: {destino.relative_to(BASE_DIR)}")
 
 
 def procurar_logos_novos(clientes):
@@ -504,11 +502,17 @@ def procurar_logos_novos(clientes):
         try:
             url_logo = buscar_logo_na_internet(cliente)
             if not url_logo:
-                print(f"Logo confiável não encontrado para {cliente}; será usado o logo Gold.")
+                builtins.print(f"Logo confiável não encontrado para {cliente}; será usado o logo Gold.")
                 continue
             baixar_logo_cliente(url_logo, cliente, pasta)
-        except (HTTPError, URLError, TimeoutError, json.JSONDecodeError, ValueError) as erro:
-            print(f"Não foi possível obter o logo de {cliente}: {erro}. Será usado o logo Gold.")
+        except (
+            HTTPError,
+            URLError,
+            builtins.TimeoutError,
+            json.JSONDecodeError,
+            builtins.ValueError,
+        ) as erro:
+            builtins.print(f"Não foi possível obter o logo de {cliente}: {erro}. Será usado o logo Gold.")
 
 
 def cartoes_equipamentos(df, links_relativos=False):
@@ -612,7 +616,7 @@ def gerar_pagina_indice(titulo, titulo_secao, descricao, cards, caminho_css, bot
 def gerar_paginas_clientes(df):
     coluna = coluna_cliente(df)
     if coluna is None:
-        raise ValueError("A planilha precisa ter uma coluna chamada Cliente.")
+        raise builtins.ValueError("A planilha precisa ter uma coluna chamada Cliente.")
 
     clientes = clientes_e_pastas(df, coluna)
     procurar_logos_novos(clientes)
@@ -635,7 +639,9 @@ def gerar_paginas_clientes(df):
 
     cards_clientes = ""
     for chave, (cliente, pasta) in clientes.items():
-        quantidade = sum(limpar_texto(valor).casefold() == chave for valor in df[coluna])
+        quantidade = builtins.sum(
+            limpar_texto(valor).casefold() == chave for valor in df[coluna]
+        )
         caminho_logo = caminho_logo_cliente(chave, pasta)
         logo_html = (
             f'<img class="logo-cliente" src="{html.escape(caminho_logo, quote=True)}" '
@@ -676,7 +682,7 @@ def gerar_paginas_clientes(df):
         destino.mkdir(parents=True, exist_ok=True)
         (destino / "index.html").write_text(pagina, encoding="utf-8")
 
-    return len(clientes)
+    return builtins.len(clientes)
 
 
 def main(somente_clientes=False):
@@ -686,16 +692,16 @@ def main(somente_clientes=False):
         if fallback.exists():
             arquivo_excel = fallback
         else:
-            raise FileNotFoundError(f"Arquivo não encontrado: {arquivo_excel}")
+            raise builtins.FileNotFoundError(f"Arquivo não encontrado: {arquivo_excel}")
 
     df = pd.read_excel(arquivo_excel)
 
     if "TAG" not in df.columns:
-        raise ValueError("A planilha precisa ter uma coluna chamada TAG.")
+        raise builtins.ValueError("A planilha precisa ter uma coluna chamada TAG.")
 
     if somente_clientes:
         total_clientes = gerar_paginas_clientes(df)
-        print(f"Página inicial criada: index.html ({total_clientes} clientes).")
+        builtins.print(f"Página inicial criada: index.html ({total_clientes} clientes).")
         return
 
     PASTA_EQUIPAMENTOS.mkdir(exist_ok=True)
@@ -732,9 +738,9 @@ def main(somente_clientes=False):
 
     total_clientes = gerar_paginas_clientes(df)
 
-    print(f"Concluído: {total} páginas criadas.")
-    print(f"QR Codes salvos em {PASTA_QRCODES.relative_to(BASE_DIR)}")
-    print(f"Página inicial criada: index.html ({total_clientes} clientes).")
+    builtins.print(f"Concluído: {total} páginas criadas.")
+    builtins.print(f"QR Codes salvos em {PASTA_QRCODES.relative_to(BASE_DIR)}")
+    builtins.print(f"Página inicial criada: index.html ({total_clientes} clientes).")
 
 
 if __name__ == "__main__":
