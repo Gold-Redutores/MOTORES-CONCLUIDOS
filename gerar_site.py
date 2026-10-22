@@ -34,7 +34,6 @@ LOGOS_CLIENTES = {
     "bunge alimentos s/a": "bunge.svg",
     "cargill agricola s.a": "cargill.svg",
     "cofco international brasil s.a.": "cofco.png",
-    "inpasa agroindustrial": "inpasa.png",
     "oleoplan rondonia industria de biocombustivel ltda": "oleoplan.png",
     "rumo malha norte s.a": "rumo.svg",
 }
@@ -84,39 +83,6 @@ def link_relativo(caminho):
         caminho = Path(PASTA_ATIVOS, *partes[1:]).as_posix()
 
     arquivo = BASE_DIR / caminho
-    if not arquivo.is_file():
-        nome_normalizado = re.sub(
-            r"[^a-z0-9]",
-            "",
-            unicodedata.normalize("NFKD", arquivo.stem)
-            .encode("ascii", "ignore")
-            .decode("ascii")
-            .casefold(),
-        )
-        diretorios = [arquivo.parent]
-        if arquivo.parent == BASE_DIR / PASTA_ATIVOS / "img":
-            diretorios.append(BASE_DIR)
-        correspondencias = [
-            candidato
-            for diretorio in diretorios
-            if diretorio.is_dir()
-            for candidato in diretorio.iterdir()
-            if candidato.is_file()
-            and candidato.suffix.casefold() == arquivo.suffix.casefold()
-            and re.sub(
-                r"[^a-z0-9]",
-                "",
-                unicodedata.normalize("NFKD", candidato.stem)
-                .encode("ascii", "ignore")
-                .decode("ascii")
-                .casefold(),
-            )
-            == nome_normalizado
-        ]
-        if len(correspondencias) == 1:
-            arquivo = correspondencias[0]
-            caminho = arquivo.relative_to(BASE_DIR).as_posix()
-
     if not arquivo.is_file() and not Path(caminho).suffix:
         arquivo_pdf = arquivo.with_suffix(".pdf")
         if arquivo_pdf.is_file():
@@ -133,7 +99,10 @@ def criar_botao(titulo, caminho, classe="botao"):
     caminho = limpar_texto(caminho)
     if caminho == "":
         return f'<span class="botao inativo">{html.escape(titulo)} indisponível</span>'
-    return f'<a class="{classe}" href="{html.escape(link_relativo(caminho))}" target="_blank">{html.escape(titulo)}</a>'
+    link = link_relativo(caminho)
+    if link == "":
+        return f'<span class="botao inativo">{html.escape(titulo)} indisponível</span>'
+    return f'<a class="{classe}" href="{html.escape(link)}" target="_blank">{html.escape(titulo)}</a>'
 
 
 def gerar_html_equipamento(dados):
@@ -148,24 +117,22 @@ def gerar_html_equipamento(dados):
 
     campos = [
         ("TAG", "TAG"),
-        ("Cliente", "Cliente"),
-        ("Tipo", "Tipo"),
         ("Fabricante", "Fabricante"),
+        #("Tipo do equipamento", "Tipo"),
         ("Modelo", "Modelo"),
-        ("Potência / especificação", "Potencia"),
-        ("Tensão", "Relacao"),
-        ("Rotação (RPM)", "RPM"),
-        ("Rolamentos", "Rolamentos"),
-        ("Peso", "Lubrificante"),
-        ("Lubrificante", "Quantidade_Oleo"),
+        ("Potência", "Potencia"),
+        #("Relação de redução", "Relacao"),
+        ("RPM entrada/saída", "RPM"),
+        # ("Tipo de montagem", "Montagem"),
+        #("Lubrificante", "Lubrificante"),
+        #("Quantidade de óleo", "Quantidade_Oleo"),
+        #("Local / Área", "Local"),
         ("Observações", "Observacoes"),
     ]
 
     linhas = ""
     for titulo, coluna in campos:
         valor = limpar_texto(dados.get(coluna, ""))
-        if not valor:
-            continue
         linhas += f"""
         <tr>
           <th>{html.escape(titulo)}</th>
@@ -273,6 +240,8 @@ def gerar_index_principal(df):
 """
 
     logo_gold = "https://i.ibb.co/zWgjxdtj/logo.png"
+    logo_inpasa = "Ativos/img/logo_inpasa.png"
+
     return f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -596,15 +565,7 @@ def cabecalho_indice(titulo):
   </div>"""
 
 
-def gerar_pagina_indice(
-    titulo,
-    titulo_secao,
-    descricao,
-    cards,
-    caminho_css,
-    botao_voltar="",
-    imagem_titulo="",
-):
+def gerar_pagina_indice(titulo, titulo_secao, descricao, cards, caminho_css, botao_voltar=""):
     return f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -633,7 +594,6 @@ def gerar_pagina_indice(
   <main class="container">
     <section class="card">
       <h2>{html.escape(titulo_secao)}</h2>
-      {imagem_titulo}
       <p>{html.escape(descricao)}</p>
       {"<div class='botoes'>" + botao_voltar + "</div>" if botao_voltar else ""}
       {"<input class='busca' id='busca' type='text' placeholder='Exemplo: OS 6251, motoredutor, WEG...'>" if titulo_secao != "Clientes cadastrados" else ""}
@@ -704,11 +664,6 @@ def gerar_paginas_clientes(df):
         ]
         cards = cartoes_equipamentos(equipamentos_cliente, links_relativos=True)
         voltar = '<a class="botao secundario" href="../../index.html">Voltar para lista geral</a>'
-        caminho_logo = caminho_logo_cliente(chave, pasta)
-        logo_cliente = (
-            f'<img class="logo-cliente" src="../../{html.escape(caminho_logo, quote=True)}" '
-            f'alt="Logo {html.escape(cliente, quote=True)}">'
-        )
         pagina = gerar_pagina_indice(
             cliente,
             "Equipamentos cadastrados",
@@ -716,7 +671,6 @@ def gerar_paginas_clientes(df):
             cards,
             f"../../{PASTA_ATIVOS}/css/style.css",
             voltar,
-            logo_cliente,
         )
         destino = BASE_DIR / "clientes" / pasta
         destino.mkdir(parents=True, exist_ok=True)
