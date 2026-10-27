@@ -227,14 +227,16 @@ def gerar_index_principal(df):
         tag_pasta = tag_para_pasta(tag)
         tipo = limpar_texto(row.get("Tipo", "Equipamento"))
         modelo = limpar_texto(row.get("Modelo", ""))
+        potencia = limpar_texto(row.get("Potencia", ""))
         local = limpar_texto(row.get("Local", ""))
-        busca = (tag + " " + tipo + " " + modelo + " " + local).lower()
+        busca = (tag + " " + tipo + " " + modelo + " " + potencia + " " + local).lower()
 
         cards += f"""
       <a class="equipamento-card" href="equipamentos/{html.escape(tag_pasta)}/index.html" data-busca="{html.escape(busca)}">
         <strong>{html.escape(tag)}</strong>
         <span>{html.escape(tipo)}</span>
         <span>{html.escape(modelo)}</span>
+        <span>{html.escape(potencia)}</span>
         <small>{html.escape(local)}</small>
       </a>
 """
@@ -525,8 +527,9 @@ def cartoes_equipamentos(df, links_relativos=False):
         tag_pasta = tag_para_pasta(tag)
         tipo = limpar_texto(row.get("Tipo", "Equipamento"))
         modelo = limpar_texto(row.get("Modelo", ""))
+        potencia = limpar_texto(row.get("Potencia", ""))
         local = limpar_texto(row.get("Local", ""))
-        busca = (tag + " " + tipo + " " + modelo + " " + local).lower()
+        busca = (tag + " " + tipo + " " + modelo + " " + potencia + " " + local).lower()
         if links_relativos:
             href = f"../../equipamentos/{tag_pasta}/index.html"
         else:
@@ -537,6 +540,7 @@ def cartoes_equipamentos(df, links_relativos=False):
         <strong>{html.escape(tag)}</strong>
         <span>{html.escape(tipo)}</span>
         <span>{html.escape(modelo)}</span>
+        <span>{html.escape(potencia)}</span>
         <small>{html.escape(local)}</small>
       </a>
 """
@@ -613,7 +617,7 @@ def gerar_pagina_indice(titulo, titulo_secao, descricao, cards, caminho_css, bot
 """
 
 
-def gerar_paginas_clientes(df):
+def gerar_paginas_clientes(df, atualizar_paginas_equipamento=False):
     coluna = coluna_cliente(df)
     if coluna is None:
         raise builtins.ValueError("A planilha precisa ter uma coluna chamada Cliente.")
@@ -629,7 +633,7 @@ def gerar_paginas_clientes(df):
             continue
         pasta_equipamento = PASTA_EQUIPAMENTOS / tag_para_pasta(tag)
         pagina_equipamento = pasta_equipamento / "index.html"
-        if not pagina_equipamento.exists():
+        if atualizar_paginas_equipamento or not pagina_equipamento.exists():
             pasta_equipamento.mkdir(parents=True, exist_ok=True)
             pagina_equipamento.write_text(
                 gerar_html_equipamento(row),
@@ -700,7 +704,10 @@ def main(somente_clientes=False):
         raise builtins.ValueError("A planilha precisa ter uma coluna chamada TAG.")
 
     if somente_clientes:
-        total_clientes = gerar_paginas_clientes(df)
+        total_clientes = gerar_paginas_clientes(
+            df,
+            atualizar_paginas_equipamento=True,
+        )
         builtins.print(f"Página inicial criada: index.html ({total_clientes} clientes).")
         return
 
