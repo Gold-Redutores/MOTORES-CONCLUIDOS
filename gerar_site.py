@@ -83,12 +83,22 @@ def link_relativo(caminho):
         caminho = Path(PASTA_ATIVOS, *partes[1:]).as_posix()
 
     arquivo = BASE_DIR / caminho
-    if not arquivo.is_file() and not Path(caminho).suffix:
-        arquivo_pdf = arquivo.with_suffix(".pdf")
-        if arquivo_pdf.is_file():
-            caminho += ".pdf"
-        else:
+    if not Path(caminho).suffix:
+        if not arquivo.parent.is_dir():
             return ""
+        arquivos_pdf = sorted(
+            (
+                candidato
+                for candidato in arquivo.parent.iterdir()
+                if candidato.is_file()
+                and candidato.stem.casefold() == arquivo.stem.casefold()
+                and candidato.suffix.casefold() == ".pdf"
+            ),
+            key=lambda candidato: (candidato.name.casefold(), candidato.name),
+        )
+        if not arquivos_pdf:
+            return ""
+        caminho = (Path(caminho).parent / arquivos_pdf[0].name).as_posix()
     elif not arquivo.is_file():
         return ""
 
