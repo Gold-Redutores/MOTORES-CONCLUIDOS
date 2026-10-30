@@ -86,7 +86,7 @@ def link_relativo(caminho):
     if not Path(caminho).suffix:
         if not arquivo.parent.is_dir():
             return ""
-        arquivos_pdf = sorted(
+        arquivos_pdf = builtins.sorted(
             (
                 candidato
                 for candidato in arquivo.parent.iterdir()
