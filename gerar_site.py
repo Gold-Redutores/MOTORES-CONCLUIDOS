@@ -28,7 +28,7 @@ PASTA_ATIVOS = builtins.next(
 )
 PASTA_QRCODES = BASE_DIR / PASTA_ATIVOS / "qrcodes"
 PASTA_LOGOS_CLIENTES = Path(PASTA_ATIVOS) / "img" / "clientes"
-LOGO_PADRAO_CLIENTE = f"{PASTA_ATIVOS}/img/logo_gold.png"
+LOGO_PADRAO_CLIENTE = (Path(PASTA_ATIVOS) / "img" / "logo_gold.png").as_posix()
 LOGOS_CLIENTES = {
     "adm do brasil ltda": "adm.png",
     "bunge alimentos s/a": "bunge.svg",
@@ -103,6 +103,19 @@ def link_relativo(caminho):
         return ""
 
     return "../../" + caminho
+
+
+def caminho_site_relativo(caminho):
+    caminho = limpar_texto(caminho)
+    if not caminho:
+        return ""
+    caminho = caminho.replace("\\", "/").lstrip("/")
+    if caminho.startswith("http://") or caminho.startswith("https://"):
+        return caminho
+    partes = Path(caminho).parts
+    if partes and partes[0].casefold() in {"ativos", "assets"}:
+        caminho = Path(PASTA_ATIVOS, *partes[1:]).as_posix()
+    return caminho
 
 
 def criar_botao(titulo, caminho, classe="botao"):
@@ -398,12 +411,12 @@ def caminho_logo_cliente(chave, pasta):
         caminho = PASTA_LOGOS_CLIENTES / arquivo_logo
         caminho_completo = BASE_DIR / caminho
         if caminho_completo.is_file():
-            return caminho.as_posix()
+            return caminho_site_relativo(caminho.as_posix())
         builtins.print(
             f"Logo cadastrado não encontrado: {caminho_completo}; "
             f"será usado o logo padrão."
         )
-        return LOGO_PADRAO_CLIENTE
+        return caminho_site_relativo(LOGO_PADRAO_CLIENTE)
 
     diretorio_logos = BASE_DIR / PASTA_LOGOS_CLIENTES
     candidatos = builtins.sorted(
@@ -412,8 +425,8 @@ def caminho_logo_cliente(chave, pasta):
         if caminho.suffix.casefold() in EXTENSOES_LOGO
     )
     if candidatos:
-        return candidatos[0].relative_to(BASE_DIR).as_posix()
-    return LOGO_PADRAO_CLIENTE
+        return caminho_site_relativo(candidatos[0].relative_to(BASE_DIR).as_posix())
+    return caminho_site_relativo(LOGO_PADRAO_CLIENTE)
 
 
 def normalizar_nome_logo(valor):
