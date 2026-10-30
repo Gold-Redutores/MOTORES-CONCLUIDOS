@@ -8,7 +8,7 @@ import html
 import unicodedata
 import json
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlparse
 from urllib.request import Request, urlopen
 
 # ALTERAR AQUI depois que o GitHub Pages estiver criado.
@@ -105,6 +105,18 @@ def link_relativo(caminho):
     return "../../" + caminho
 
 
+def eh_imagem(caminho):
+    texto = limpar_texto(caminho)
+    if not texto:
+        return False
+    if texto.startswith("http://") or texto.startswith("https://"):
+        caminho = urlparse(texto).path
+    else:
+        caminho = texto
+    extensao = Path(caminho).suffix.casefold()
+    return extensao in {".png", ".jpg", ".jpeg", ".webp", ".gif", ".svg"}
+
+
 def caminho_site_relativo(caminho):
     caminho = limpar_texto(caminho)
     if not caminho:
@@ -137,6 +149,16 @@ def gerar_html_equipamento(dados):
         bloco_foto = f'<img src="{html.escape(foto)}" alt="Foto do equipamento {html.escape(tag)}" class="foto-equipamento">'
     else:
         bloco_foto = '<div class="obs">Foto não cadastrada na planilha.</div>'
+
+    foto_adicional = link_relativo(dados.get("Fotos_Adicionais", ""))
+    if foto_adicional and eh_imagem(foto_adicional):
+        bloco_foto_adicional = f'''
+    <section class="card">
+      <h2>Foto adicional</h2>
+      <img src="{html.escape(foto_adicional)}" alt="Foto adicional do equipamento {html.escape(tag)}" class="foto-adicional">
+    </section>'''
+    else:
+        bloco_foto_adicional = ""
 
     campos = [
         ("TAG", "TAG"),
@@ -224,6 +246,8 @@ def gerar_html_equipamento(dados):
       </div>
     </section>
 
+    {bloco_foto_adicional}
+
     <section class="card">
       <h2>Link desta página</h2>
       <div class="obs">{html.escape(link_publicado)}</div>
@@ -254,8 +278,14 @@ def gerar_index_principal(df):
         local = limpar_texto(row.get("Local", ""))
         busca = (tag + " " + tipo + " " + modelo + " " + potencia + " " + local).lower()
 
+        foto = ""
+        caminho_foto = link_relativo(row.get("Foto", ""))
+        if caminho_foto and eh_imagem(caminho_foto):
+            foto = f'<img class="mini-foto" src="{html.escape(caminho_foto, quote=True)}" alt="Foto {html.escape(tag, quote=True)}" loading="lazy">'
+
         cards += f"""
       <a class="equipamento-card" href="equipamentos/{html.escape(tag_pasta)}/index.html" data-busca="{html.escape(busca)}">
+        {foto}
         <strong>{html.escape(tag)}</strong>
         <span>{html.escape(tipo)}</span>
         <span>{html.escape(modelo)}</span>
@@ -558,8 +588,14 @@ def cartoes_equipamentos(df, links_relativos=False):
         else:
             href = f"equipamentos/{tag_pasta}/index.html"
 
+        foto = ""
+        caminho_foto = link_relativo(row.get("Foto", ""))
+        if caminho_foto and eh_imagem(caminho_foto):
+            foto = f'<img class="mini-foto" src="{html.escape(caminho_foto, quote=True)}" alt="Foto {html.escape(tag, quote=True)}" loading="lazy">'
+
         cards += f"""
       <a class="equipamento-card" href="{html.escape(href, quote=True)}" data-busca="{html.escape(busca, quote=True)}">
+        {foto}
         <strong>{html.escape(tag)}</strong>
         <span>{html.escape(tipo)}</span>
         <span>{html.escape(modelo)}</span>
