@@ -676,13 +676,18 @@ def gerar_pagina_indice(titulo, titulo_secao, descricao, cards, caminho_css, bot
 """
 
 
-def gerar_paginas_clientes(df, atualizar_paginas_equipamento=False):
+def gerar_paginas_clientes(
+    df,
+    atualizar_paginas_equipamento=False,
+    buscar_logos=False,
+):
     coluna = coluna_cliente(df)
     if coluna is None:
         raise builtins.ValueError("A planilha precisa ter uma coluna chamada Cliente.")
 
     clientes = clientes_e_pastas(df, coluna)
-    procurar_logos_novos(clientes)
+    if buscar_logos:
+        procurar_logos_novos(clientes)
     paginas_individuais_ausentes = 0
     for _, row in df.iterrows():
         if not limpar_texto(row.get(coluna, "")):
@@ -748,7 +753,7 @@ def gerar_paginas_clientes(df, atualizar_paginas_equipamento=False):
     return builtins.len(clientes)
 
 
-def main(somente_clientes=False):
+def main(somente_clientes=False, buscar_logos=False):
     arquivo_excel = ARQUIVO_EXCEL
     if not arquivo_excel.exists():
         fallback = BASE_DIR / "dados_equipamentos.xlsx"
@@ -766,6 +771,7 @@ def main(somente_clientes=False):
         total_clientes = gerar_paginas_clientes(
             df,
             atualizar_paginas_equipamento=True,
+            buscar_logos=buscar_logos,
         )
         builtins.print(f"Página inicial criada: index.html ({total_clientes} clientes).")
         return
@@ -802,7 +808,7 @@ def main(somente_clientes=False):
 
         total += 1
 
-    total_clientes = gerar_paginas_clientes(df)
+    total_clientes = gerar_paginas_clientes(df, buscar_logos=buscar_logos)
 
     builtins.print(f"Concluído: {total} páginas criadas.")
     builtins.print(f"QR Codes salvos em {PASTA_QRCODES.relative_to(BASE_DIR)}")
@@ -816,4 +822,13 @@ if __name__ == "__main__":
         action="store_true",
         help="Atualiza index.html e as páginas dos clientes sem regenerar todos os equipamentos.",
     )
-    main(somente_clientes=parser.parse_args().clientes_only)
+    parser.add_argument(
+        "--buscar-logos",
+        action="store_true",
+        help="Busca logos ausentes online; sem esta opção, usa os logos locais ou o logo padrão.",
+    )
+    argumentos = parser.parse_args()
+    main(
+        somente_clientes=argumentos.clientes_only,
+        buscar_logos=argumentos.buscar_logos,
+    )
